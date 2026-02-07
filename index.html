@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Jasmine Bookstore</title>
+        <link rel="icon" type="image/icon" href="image/icon.jpg">
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap' rel="stylesheet">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        <script defer src="main.js"></script>
+</head>
+
+<body >
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <span class="logo"><a href="#">Jasmine Bookstore</a> </span>
+    <div class="nav-left">
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="books.html">Books</a></li>
+      </ul>
+    </div>
+  
+    <div class="nav-right">
+      <button id="openModal" class="login-btn">
+        <i class="fa-solid fa-user"></i> Login</button>
+    </div>
+  </nav>
+  <div class="modal" id="modal">
+
+    <div class="modal-box">
+
+      <span class="close" id="closeModal">&times;</span>
+      <h2 id="formTitle">Login</h2>
+
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" style="display:none">
+
+      <div class="forgot" id="forgotBox">
+       <a href="#">Forgot password?</a>
+      </div>
+
+      <button class="main-btn" id="submitBtn">Login</button>
+
+      <p class="success" id="successMsg">Success ✅</p>
+
+      <p class="switch">
+       Don't have an account?
+       <span id="switchForm">Sign up</span>
+       </p>
+      
+    </div>
+  </div>
+ 
+  
+<!--slider-->
+  <section class="hero">
+    <div class="hero-text">
+        <h2> WELCOME TO JASMINE BOOKSTORE!</h2>
+        <p>Valentine's day season is coming. Share love with book on special day. </p>
+    </div>
+ </section>
+
+ <section id="top" class="top">
+  <h2>Valentine Edition</h2>
+  <p> Special edition of valentine on the way with special discount. Share the love books on valentine's day.</p>
+  <div class="card-list">
+
+    <div class="card" data-category="ផ្កាត្បូងទទឹម & លម្អងព្រិលពន្លឺ">
+      <img src="./image/14.1.jpg">
+      <h4>ផ្កាត្បូងទទឹម & លម្អងព្រិលពន្លឺ</h4>
+      <p class="price" data-price="16.50">$16.50</p>
+    </div>
+
+    <div class="card" data-category="មុនថ្ងៃហៀបលិច១&​២">
+      <img src="./image/14.2.jpg">
+      <h4>មុនថ្ងៃហៀបលិច១&​២</h4>
+      <p class="price">$16.50</p>
+    </div>
+
+    <div class="card" data-category="ដំបូងមិត្ត">
+      <img src="./image/14.3.jpg">
+      <h4>ដំបូងមិត្ត</h4>
+      <p class="price">$8</p>
+    </div>
+
+    <div class="card" data-category="ផ្កាយរីកនាយសមុទ្រ">
+      <img src="./image/14.4.jpg">
+      <h4>ផ្កាយរីកនាយសមុទ្រ</h4>
+      <p class="price">$8.50</p>
+    </div>
+
+    <div class="card" data-category="មុនថ្ងៃដែលយើងរៀបការ​ & ស្នេហាខណ្ឌចប់">
+      <img src="./image/14.5.jpg">
+      <h4>មុនថ្ងៃដែលយើងរៀបការ​ & ស្នេហាខណ្ឌចប់</h4>
+      <p class="price">$16.50</p>
+    </div>
+    
+    <div class="card" data-category="គ្រាន់តែចង់ប្រាប់ថា I just called to say I love you">
+      <img src="./image/14.6.jpg">
+      <h4>គ្រាន់តែចង់ប្រាប់ថា I just called to say I love you</h4>
+      <p class="price">$10</p>
+    </div>
+  </div>
+</section>
+</body>
+<footer class="footer">
+    <div class="footer-container">
+     <div class="footer-col">
+        <h2 class="footer-text">Jasmine Bookstore</h2>
+           <p>The more you read the more you learn. When you read you will get more knowledge in every each book.</p>
+     </div>
+     <div class="footer-col">
+        <h3>Services</h3>
+        <p>Customer-Focused </p>
+        <p>Reliable & Timely</p>
+        <p>Transparent & Honest</p>
+     </div>
+     <div class="footer-col">
+        <h3>Contact us</h3>
+        <p>Email:mim@gmail.com</p>
+        <p>Telegram: @ Mim-Mim</p>
+        <p>Phone:(+888)</p>
+     </div>
+    </div> 
+    <div class="footer-bottom">
+     <p>© <span id="year"></span> Jasmine Bookstore. All rights reserved.</p>
+    </div>
+</footer>
+</html>

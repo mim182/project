@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Jasmine Bookstore</title>
+        <link rel="icon" type="image/icon" href="image/icon.jpg">
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap' rel="stylesheet">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        <script defer src="main.js"></script>
+</head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    font-family: Great Vibes,cursive;
+    text-align: center;
+    color:#3b2c25;
+  }
+  .menu button {
+    border-radius: 10%;
+    object-fit: cover;
+    width: 110px;
+    height: 50px;
+  }
+  .search{
+    border-radius: 10%;
+    object-fit: cover;
+    width: 110px;
+    height: 50px;
+}
+  .section {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 10px;
+  }
+  .price {
+  color: brown;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: brown;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+/* Search container */
+.search-container {
+  height: 40px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Search input */
+.search-container input {
+  width: 40%;
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 25px;
+  border: 1px solid #c4a484;
+  font-size: 14px;
+  outline: none;
+  font-family: Arial, sans-serif;
+}
+
+/* Search button */
+.search-container button {
+  height: 40px;
+  padding: 0 25px;
+  border-radius: 25px;
+  border: none;
+  background-color: brown;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #5a1f1f;
+}
+</style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <span class="logo"><a href="#">Jasmine Bookstore</a> </span>
+    <div class="nav-left">
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="books.html">Books</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="cart-icon" onclick="toggleCart()">
+       🛒 <span id="cart-count">0</span>
+      </div>
+      <button id="openModal" class="login-btn">
+        <i class="fa-solid fa-user"></i> Login</button>
+    </div>
+  </nav>
+  <div id="side-cart" class="side-cart">
+  <div class="cart-header">
+    <h3>My Cart</h3>
+    <span class="close" onclick="toggleCart()">✖</span>
+  </div>
+
+  <div id="cart-items" class="cart-items"></div>
+
+  <div class="cart-footer">
+    <p>Total: $<span id="total">0.00</span></p>
+    <button class="checkout">Checkout</button>
+  </div>
+</div>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+
+      <span class="close" id="closeModal">&times;</span>
+      <h2 id="formTitle">Login</h2>
+
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" style="display:none">
+
+      <div class="forgot" id="forgotBox">
+       <a href="#">Forgot password?</a>
+      </div>
+
+      <button class="main-btn" id="submitBtn">Login</button>
+
+      <p class="success" id="successMsg">Success ✅</p>
+
+      <p class="switch">
+       Don't have an account?
+       <span id="switchForm">Sign up</span>
+       </p>
+      
+    </div>
+  </div>
+
+<div class="search-container">
+<input type="text" id="searchBox" placeholder="search books...">
+<button onclick="searchSection()">Search</button>
+</div>
+<h2>Menu</h2>
+<div class="menu">
+  <button onclick="showAll()">ALL</button>
+  <button onclick="showSection('ចត្វាប៊ុក្ស')">ចត្វាប៊ុក្ស</button>
+  <button onclick="showSection('មករា')">មករា</button>
+  <button onclick="showSection('វិសុទ្ធ')">វិសុទ្ធ</button>
+  <button onclick="showSection('ខេមា')">ខេមា</button>
+  <button onclick="showSection('សៀវភៅសួគ៌')">សៀវភៅសួគ៌</button>
+  <button onclick="showSection('សច្ចៈ')">សច្ចៈ</button>
+  <button onclick="showSection('វេហាស៍')">វេហាស៍</button>
+  <button onclick="showSection('ជតាសៀវភៅ')">ជតាសៀវភៅ</button>
+  <button onclick="showSection('Daisy Book')">Daisy Book</button>
+</div>
+<div id="ចត្វាប៊ុក្ស" class="section">
+  <h3>ចត្វាប៊ុក្ស</h3>
+  <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/5.1.jpg">
+      <h4>ស្នេហាគឺអាត្មានិយម</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('ស្នេហាគឺអាត្មានិយម',9)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/5.2.jpg">
+      <h4>ហ្វូងតារា</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('ហ្វូងតារា',8)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/5.3.jpg">
+      <h4>សនើ្សមរាត្រី</h4>
+    <p class="price">$9.50</p>
+      <button class="add-btn" onclick="addToCart('សនើ្សមរាត្រី',9.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/5.4.jpg">
+      <h4>ផ្កាឥតលម្អង</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('ផ្កាឥតលម្អង',7)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/5.5.jpg">
+      <h4>ស្ពានឥន្ទធនូ</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('ស្ពានឥន្ទធនូ',7.50)">+</button>
+    </div>
+    
+    <div class="card-item" data-category="">
+      <img src="./image/5.6.jpg">
+      <h4>ប្រលោមលោកចុងក្រោយ១</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('ប្រលោមលោកចុងក្រោយ១',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/5.7.jpg">
+      <h4>ប្រលោមលោកចុងក្រោយ២</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('ប្រលោមលោកចុងក្រោយ២',7.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/5.8.jpg">
+      <h4>ព្រិលធ្លាក់កណ្តាលសមុទ្រខ្សាច់</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('ព្រិលធ្លាក់កណ្តាលសមុទ្រខ្សាច់',10)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/5.9.jpg">
+      <h4>ប្រលោមលោកចុងក្រោយ៣</h4>
+      <p class="price">$8.75</p>
+      <button class="add-btn" onclick="addToCart('ប្រលោមលោកចុងក្រោយ៣',8.75)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/5.10.jpg">
+      <h4>រាត្រីមេឃស្រកានាគ</h4>
+      <p class="price">$6.25</p>
+      <button class="add-btn" onclick="addToCart('ផ្កាត្បូងទទឹម & លម្អងព្រិលពន្លឺ',6.25)">+</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="មករា" class="section">
+  <h3>មករា</h3>
+  <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/6.1.jpg">
+      <h4>មកតាមសន្យា២</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('មកតាមសន្យា២',7.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/6.2.jpg">
+      <h4>មកតាមសន្យា១</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('មកតាមសន្យា១',7)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/6.3.jpg">
+      <h4>កេតុ</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('កេតុ',7.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/6.4.jpg">
+      <h4>មុឺនយោជន៍ស្នេហ៌</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('មុឺនយោជន៍ស្នេហ៌',7.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/6.5.jpg">
+      <h4>កំដរខ្លួនឯង</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('កំដរខ្លួនឯង',7)">+</button>
+    </div>
+    
+    <div class="card-item" data-category="">
+      <img src="./image/6.7.jpg">
+      <h4>កូនប្រសារវ័យក្មេង</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('កូនប្រសារវ័យក្មេង',8)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/6.8.jpg">
+      <h4>កុងត្រាឫស្យា</h4>
+      <p class="price">$9.50</p>
+      <button class="add-btn" onclick="addToCart('កុងត្រាឫស្យា',9.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/6.9.jpg">
+      <h4>កងប៉ូវថៅ</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('កងប៉ូវថៅ',8)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/6.10.jpg">
+      <h4>មុខងោះ</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('មុខងោះ',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/6.11.jpg">
+      <h4>ក្នុងបះដូងដែលគ្មានខ្ងុំ</4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('ក្នុងបះដូងដែលគ្មានខ្ងុំ',7.5)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/6.12.jpg">
+      <h4>ហៃអើ!</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('ហៃអើ!',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/6.13.jpg">
+      <h4>កួចចិត្តចងស្នេហ៍</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('កួចចិត្តចងស្នេហ៍',7)">+</button>
+  </div>
+</div>
+</div>
+
+<div id="វិសុទ្ធ" class="section">
+  <h3>វិសុទ្ធ</h3>
+  <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/7.1.jpg">
+      <h4>អ្នកស្រុកផ្សែងបាំង</h4>
+      <p class="price">$13.50</p>
+      <button class="add-btn" onclick="addToCart('អ្នកស្រុកផ្សែងបាំង',13.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/7.2.jpg">
+      <h4>មុនីវណ្ណ</h4>
+      <p class="price">$10.50</p>
+      <button class="add-btn" onclick="addToCart('មុនីវណ្ណ',10.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/7.3.jpg">
+      <h4>ផែនដីពួកយើង</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('ផែនដីពួកយើង',9)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/7.4.jpg">
+      <h4>ផ្ញើចិត្តនឹកក្នុងគ្រាប់ខ្សាច់</h4>
+      <p class="price">$10.50</p>
+      <button class="add-btn" onclick="addToCart('ផ្ញើចិត្តនឹកក្នុងគ្រាប់ខ្សាច់',10.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/7.5.jpg">
+      <h4>និទានសន្យា២បេះដូង</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('និទានសន្យា២បេះដូង',9)">+</button>
+    </div>
+  </div>
+</div>
+<div id="ខេមា" class="section">
+  <h3>ខេមា</h3>
+  <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/8.1.jpg">
+      <h4>ត្រឹមជាមនុស្សក្រៅបេះដូង</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addTocart('ត្រឹមជាមនុស្សក្រៅបេះដូង',8.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/8.2.jpg">
+      <h4>ស្នេហ៏ក្នុងគ្រោះថ្នាក់</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('ស្នេហ៏ក្នុងគ្រោះថ្នាក់',7.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/8.3.jpg">
+      <h4>ព្រោះជនទី៣ជា super star</h4>
+      <p class="price">$13.50</p>
+      <button class="add-btn" onclick="addToCart('ព្រោះជនទី៣ជា super star',13.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/8.4.jpg">
+      <h4>ចារកិច្ចសិង្ហកំណាច</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('ចារកិច្ចសិង្ហកំណាច',8)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/8.5.jpg">
+      <h4>មេដឹកនាំមនុស្សក្រៅភព</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('មេដឹកនាំមនុស្សក្រៅភព',8)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/8.6.jpg">
+      <h4>វិមានសួង</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('វិមានសួង',8)">+</button>
+    </div>
+  </div>
+</div>
+<div id="Daisy Book" class="section">
+  <h3>Daisy Book</h3>
+  <div class="cards-list">
+    <div class="card-item" data-category="">
+      <img src="./image/9.1.jpg">
+      <h4>យូឡុងដូងចិត្ត</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('យូឡុងដូងចិត្ត',10)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/9.2.jpg">
+      <h4>ផ្កាយរះលើឃុំអណ្ដូងប្រេង</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('ផ្កាយរះលើឃុំអណ្ដូងប្រេង',10)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/9.3.jpg">
+      <h4>បញ្ញើក្អែក​ បង្កែកបេះដូង</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('បញ្ញើក្អែក​ បង្កែកបេះដូង',10)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/9.4.jpg">
+      <h4>ស្រីម្នាក់ដែលបងមើលរំលង</h4>
+      <p class="price">$8</p>
+      <button class="add-btn" onclick="addToCart('ស្រីម្នាក់ដែលបងមើលរំលង',8)">+</button>
+    </div>
+  </div>
+</div>
+<div id="សៀវភៅសួគ៌" class="section">
+  <h3>សៀវភៅសួគ៌</h3>
+   <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/11.1.jpg">
+      <h4>វិមានផ្កាចំបុី</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('វិមានផ្កាចំបុី',9)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/11.2.jpg">
+      <h4>ហាងសៀវភៅនៅផ្លូវកាច់ជ្រុង</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('ហាងសៀវភៅនៅផ្លូវកាច់ជ្រុង',9)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/11.3.jpg">
+      <h4>អប់សុីដៀនក្លឹប</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('អប់សុីដៀនក្លឹប',9)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/11.4.jpg">
+      <h4>ស្នេហ៏ឆ្លាក់លើថ្ម២</h4>
+      <p class="price">$18</p>
+      <button class="add-btn" onclick="addToCart('ស្នេហ៏ឆ្លាក់លើថ្ម២',18)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/11.5.jpg">
+      <h4>ឋានសួគ៏សាងបាប</h4>
+      <p class="price">$13</p>
+      <button class="add-btn" onclick="addToCart('ឋានសួគ៏សាងបាប',13)">+</button>
+    </div>
+  </div>
+</div>
+<div id="សច្ចៈ" class="section">
+  <h3>សច្ចៈ</h3>
+  <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/12.1.jpg">
+      <h4>រាហូ​អសូរិន្ទ</h4>
+      <p class="price">$9</p>
+      <button class="add-btn" onclick="addToCart('រាហូ​អសូរិន្ទ',9)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/12.2.jpg">
+      <h4>អន្ទាក់ដួងចិត្ត</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('អន្ទាក់ដួងចិត្ត',10)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/12.3.jpg">
+      <h4>ចលាចល បេះដូង</h4>
+      <p class="price">$11</p>
+      <button class="add-btn" onclick="addToCart('ចលាចល បេះដូង',11)">+</button>
+    </div>
+  </div>
+</div>
+<div id="វេហាស៍" class="section">
+  <h3>វេហាស៍</h3>
+  <div class="cards-list">
+
+    <div class="card-item" data-category="">
+      <img src="./image/13.1.jpg">
+      <h4>ស្នេហ៏ឆ្លាក់លើថ្ម</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('ស្នេហ៏ឆ្លាក់លើថ្ម',10)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/13.2.jpg">
+      <h4>ដួងនេត្រា</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addToCart('ដួងនេត្រា',8.50)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/13.3.jpg">
+      <h4>អាថ៏កំបាំងថ្នាក់ខ៨</h4>
+      <p class="price">$12</p>
+      <button class="add-btn" onclick="addToCart('អាថ៏កំបាំងថ្នាក់ខ៨',12)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/13.4.jpg">
+      <h4>ស្អែករៀមលាហើយ</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('ស្អែករៀមលាហើយ',10)">+</button>
+    </div>
+
+    <div class="card-item" data-category="">
+      <img src="./image/13.5.jpg">
+      <h4>បងគ្រូជាទីស្រឡាញ់</h4>
+      <p class="price">$9.50</p>
+      <button class="add-btn" onclick="addToCart('បងគ្រូជាទីស្រឡាញ់',9.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.6.jpg">
+      <h4>ស្ទាវក្រមំុភូមិលើទឹក</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addToCart('ស្ទាវក្រមំុភូមិលើទឹក',8.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.7.jpg">
+      <h4>កូនក្រមុំរដូវស្លឹកឈើជ្រុះ</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addToCart('កូនក្រមុំរដូវស្លឹកឈើជ្រុះ',8.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.8.jpg">
+      <h4>បងប្រធានថ្នាក់ជាទីស្រឡាញ់</h4>
+      <p class="price">$9.50</p>
+      <button class="add-btn" onclick="addToCart('បងប្រធានថ្នាក់ជាទីស្រឡាញ់',9.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.9.jpg">
+      <h4>គ្រាមួយនៃបេះដូង</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addToCart('គ្រាមួយនៃបេះដូង',8.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.10.jpg">
+      <h4>Piano​ ក្រោមតំណក់ទឹកសន្សើម</h4>
+      <p class="price">$10</p>
+      <button class="add-btn" onclick="addToCart('Piano​ ក្រោមតំណក់ទឹកសន្សើម',10)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.11.jpg">
+      <h4>បងពេទ្យ</h4>
+      <p class="price">$12</p>
+      <button class="add-btn" onclick="addToCart('បងពេទ្យ',12)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/13.12.jpg">
+      <h4>ទេពច្យុត ក្លែងក្លាយ</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addToCart('ទេពច្យុត ក្លែងក្លាយ',8.50)">+</button>
+    </div>
+  </div>
+</div>
+<div id="ជតាសៀវភៅ" class="section">
+  <h3>ជតាសៀវភៅ</h3>
+  <div class="cards-list">
+
+   <div class="card-item" data-category="">
+      <img src="./image/10.1.jpg">
+      <h4>មិត្តល្អ</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('មិត្តល្អ',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.2.jpg">
+      <h4>កម្មស្នេហ៍រយជាតិ</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('កម្មស្នេហ៍រយជាតិ',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.3.jpg">
+      <h4>កិន្នរា</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('កិន្នរា',$7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.4.jpg">
+      <h4>ប្រមាញ់ស្នេហ៍ម្ចាស់ព្រៃ</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('ប្រមាញ់ស្នេហ៍ម្ចាស់ព្រៃ',7.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.5.jpg">
+      <h4>សូរបនខារបស់ខ្ងុំ</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('សូរបនខារបស់ខ្ងុំ',7.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.6.jpg">
+      <h4>កងដៃអាម៉ាប់</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('កងដៃអាម៉ាប់',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.7.jpg">
+      <h4>ក្រសោប</h4>
+      <p class="price">$7</p>
+      <button class="add-btn" onclick="addToCart('ក្រសោប',7)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.8.jpg">
+      <h4>កូនជឺងឃុនកែវ</h4>
+      <p class="price">$8.50</p>
+      <button class="add-btn" onclick="addToCart('កូនជឺងឃុនកែវ',8.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.9.jpg">
+      <h4>ខ្ងុំជាពន្លឺអ្នកជាស្រមោល</h4>
+      <p class="price">$7.50</p>
+      <button class="add-btn" onclick="addToCart('ខ្ងុំជាពន្លឺអ្នកជាស្រមោល',7.50)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.10.jpg">
+      <h4>ក្រមួនអាម៉ាប់</h4>
+      <p class="price">$6</p>
+      <button class="add-btn" onclick="addToCart('ក្រមួនអាម៉ាប់',6)">+</button>
+    </div>
+    <div class="card-item" data-category="">
+      <img src="./image/10.11.jpg">
+      <h4>ស្នេហ៍៣ចក្រវាល</h4>
+      <p class="price"></p>
+      <button class="add-btn" onclick="addToCart('ស្នេហ៍៣ចក្រវាល',5)">+</button>
+    </div>
+  </div>
+</div>  
+<script>
+  const sections = document.querySelectorAll('.section');
+
+  function showAll() {
+    sections.forEach(sec => sec.style.display = 'block');
+    document.querySelectorAll('.card-item').forEach(card => {
+      card.style.display = 'block';
+    });
+  }
+
+  function showSection(id) {
+    sections.forEach(sec => sec.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  // 🔍 Search ក្នុង h4
+  function searchSection() {
+    const query = document.getElementById('searchBox').value.toLowerCase();
+
+    sections.forEach(section => {
+      let hasMatch = false;
+      const cards = section.querySelectorAll('.card-item');
+
+      cards.forEach(card => {
+        const title = card.querySelector('h4').innerText.toLowerCase();
+
+        if (title.includes(query)) {
+          card.style.display = 'block';
+          hasMatch = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // បង្ហាញ section បើមាន card ត្រូវគ្នា
+      section.style.display = hasMatch ? 'block' : 'none';
+    });
+
+    // បើ search ទទេ → show all
+    if (query === "") {
+      showAll();
+    }
+  }
+
+  showAll();
+</script>
+</body>
+</html>
+
+
+
+
+
+    
+
+    
+
+
+
+
+  
+
+ 
+  
+
